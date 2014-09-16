@@ -30,6 +30,7 @@ while true
 do
   batch=$(($batch+1))
   if [[ $batch = "10" ]]; then
+    echo "All batches done, exiting."
     exit 0
   fi
 
@@ -50,5 +51,6 @@ do
     done
   done
   
+  echo "Waiting $trial_sleep_time seconds until next batch."
   sleep $trial_sleep_time
 done
