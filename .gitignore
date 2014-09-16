@@ -18,3 +18,6 @@ project/plugins/project/
 
 # C objects
 *.o
+
+# vim tmp files
+*.sw*
