@@ -1,10 +1,12 @@
 #!/bin/sh
 
-stream_array_size=60000000
 batch_trials=4
+max_num_batch=2
 trial_sleep_time=120 # 2 minutes
 tsqr_rows="32768"
 tsqr_cols="512"
+
+stream_array_size=60000000
 
 physical_cores=$((`cat /proc/cpuinfo | grep -i processor | wc -l` / 2))
 
@@ -25,12 +27,12 @@ if [ ! -f ./stream.c ]; then
   gcc -O -fopenmp -D_OPENMP  -DSTREAM_ARRAY_SIZE=$stream_array_size stream.c -o stream
 fi
 
-batch=0
+batch=-1
 while true
 do
   batch=$(($batch+1))
-  if [[ $batch = "10" ]]; then
-    echo "All batches done, exiting."
+  if [[ $batch -eq $max_num_batch ]]; then
+    echo "All $max_num_batch batches done, exiting."
     exit 0
   fi
 
